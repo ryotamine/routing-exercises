@@ -1,0 +1,1 @@
+# Rails Routing Exercise by Ryota Mine
