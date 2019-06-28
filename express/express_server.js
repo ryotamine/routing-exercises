@@ -1,7 +1,9 @@
 const express       = require("express");
 const cookieSession = require("cookie-session");
-const app           = express();
-const PORT          = 8080;
+const bcrypt        = require("bcrypt");
+
+const app  = express();
+const PORT = 8080;
 
 app.use(cookieSession({
   name: "session",
