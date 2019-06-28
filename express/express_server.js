@@ -22,6 +22,17 @@ app.use(methodOverride("_method"));
 // Set ejs as the template engine
 app.set("view engine", "ejs");
 
+/* Generate string of 12 random numeric characters for user ID in register 
+database */
+function generateRandomString() {
+  let text = "";
+  let str = "0123456789";
+  for (let i = 0; i < 12; i++) {
+    text += str.charAt(Math.floor(Math.random() * str.length));
+  }
+  return text;
+}
+
 // GET home page
 app.get("/", (req, res) => {
   res.render("urls_index");
