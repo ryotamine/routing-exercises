@@ -1,6 +1,8 @@
-const express       = require("express");
-const cookieSession = require("cookie-session");
-const bcrypt        = require("bcrypt");
+const express        = require("express");
+const cookieSession  = require("cookie-session");
+const bcrypt         = require("bcrypt");
+const bodyParser     = require("body-parser");
+const methodOverride = require("method-override");
 
 const app  = express();
 const PORT = 8080;
@@ -11,12 +13,14 @@ app.use(cookieSession({
   keys: ["express"]
 }));
 
+// Use body parser for all routes
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Use method override for login and register
+app.use(methodOverride("_method"));
+
 // Set ejs as the template engine
 app.set("view engine", "ejs");
-
-// Use body parser for all routes
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // GET home page
 app.get("/", (req, res) => {
