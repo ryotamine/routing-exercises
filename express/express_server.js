@@ -4,8 +4,9 @@ const PORT    = 8080;
 
 app.set("view engine", "ejs");
 
+// GET home page
 app.get("/", (req, res) => {
-  res.send("Hello!");
+  res.render("urls_index");
 });
 
 app.listen(PORT, () => {
