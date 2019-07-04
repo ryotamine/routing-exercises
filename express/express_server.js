@@ -7,6 +7,11 @@ const methodOverride = require("method-override");
 const app  = express();
 const PORT = 8080;
 
+// Create AJAX database environment
+const environment   = process.env.NODE_ENV || "development";
+const configuration = require("./knexfile")[environment];
+const database      = require("knex")(configuration);
+
 // Use cookie session for login event
 app.use(cookieSession({
   name: "session",
