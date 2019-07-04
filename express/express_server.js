@@ -27,12 +27,12 @@ app.use(methodOverride("_method"));
 // Set ejs as the template engine
 app.set("view engine", "ejs");
 
-/* Generate string of 12 random numeric characters for user ID in register 
+/* Generate string of 9 random numeric characters for user ID in register 
 database */
 function generateRandomString() {
   let text = "";
   let str = "0123456789";
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 9; i++) {
     text += str.charAt(Math.floor(Math.random() * str.length));
   }
   return text;
@@ -46,6 +46,28 @@ app.get("/", (req, res) => {
 // GET registration form
 app.get("/register", (req, res) => {
   res.render("urls_register");
+});
+
+// PUT registration form
+app.put("/register", (req, res) => {
+  const userId = generateRandomString();
+  const firstName = req.body.firstName
+  const lastName = req.body.lastName;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
+
+  // Add registration information in users database
+  database.insert([{
+    id: userId,
+    first_name: firstName,
+    last_name: lastName,
+    email: userEmail,
+    password: bcrypt.hashSync(userPassword, 10)
+  }])
+  .into("users")
+  .then((result) => {
+    res.redirect("/logged-in");
+  });
 });
 
 // Boot server
