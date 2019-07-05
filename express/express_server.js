@@ -55,6 +55,7 @@ app.put("/register", (req, res) => {
   const lastName = req.body.lastName;
   const userEmail = req.body.email;
   const userPassword = req.body.password;
+  const hashedUserPassword = bcrypt.hashSync(userPassword, 10)
 
   // Check for registration errors
   if (!firstName || !lastName || !userEmail || !userPassword) {
@@ -77,7 +78,7 @@ app.put("/register", (req, res) => {
             first_name: firstName,
             last_name: lastName,
             email: userEmail,
-            password: bcrypt.hashSync(userPassword, 10)
+            password: hashedUserPassword
           }])
           .into("users")
           .then((result) => {
@@ -93,6 +94,34 @@ app.put("/register", (req, res) => {
 // GET login form
 app.get("/login", (req, res) => {
   res.render("urls_login");
+});
+
+// PUT login form
+app.put("/login", (req, res) => {
+  const loginEmail = req.body.email;
+  const loginPassword = req.body.password;
+
+  /* Compare email and password to users database.
+  If both matches, go to welcome page.
+  If not, send error message. */
+  database.select("email")
+    .from("users")
+    .where("email", loginEmail)
+    .then((emailList) => {
+      if (emailList.length === 0) {
+        res.status(400).send("Invalid email. Please try again.");
+        return;
+      } else {
+        database.select("password")
+          .from("users")
+          .where("password", loginPassword)
+          .then((passwordList) => {
+            bcrypt.compare(passwordList, hash, function(err, res) {
+              res.redirect("/welcome");
+            });
+          });
+      }
+    });
 });
 
 // Boot server
