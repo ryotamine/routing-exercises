@@ -25,7 +25,7 @@ app.use(cookieSession({
 // Use body parser for all routes
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Use method override for login and register
+// Use method override for login, register, and logout
 app.use(methodOverride("_method"));
 
 // Set ejs as the template engine
