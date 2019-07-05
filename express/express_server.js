@@ -56,29 +56,36 @@ app.put("/register", (req, res) => {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
 
-  /* Check if email already exists in users database. 
-  If so, send error message. 
-  If not, add registration information in users database. */
-  database.select("email")
-    .from("users")
-    .where("email", userEmail)
-    .then((emailList) => {
-      if (emailList.length === 0) {
-        database.insert([{
-          id: userId,
-          first_name: firstName,
-          last_name: lastName,
-          email: userEmail,
-          password: bcrypt.hashSync(userPassword, 10)
-        }])
-        .into("users")
-        .then((result) => {
-          res.redirect("/welcome");
-        });
-      } else {
-        res.status(400).send("Email already exists. Please try again.");
-      }
-    });
+  // Check for registration errors
+  if (!firstName || !lastName || !userEmail || !userPassword) {
+    res.status(400).send("Invalid entry. Please try again.");
+    return;
+  } else {
+    /* Check if email already exists in users database. 
+    If so, send error message. 
+    If not, add registration information in users database. */
+    database.select("email")
+      .from("users")
+      .where("email", userEmail)
+      .then((emailList) => {
+        if (emailList.length !== 0) {
+          res.status(400).send("Email already exists. Please try again.");
+          return;
+        } else {
+          database.insert([{
+            id: userId,
+            first_name: firstName,
+            last_name: lastName,
+            email: userEmail,
+            password: bcrypt.hashSync(userPassword, 10)
+          }])
+          .into("users")
+          .then((result) => {
+            res.redirect("/welcome");
+          });
+        }
+      });
+  }
 });
 
 // Boot server
