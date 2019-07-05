@@ -1,9 +1,11 @@
+// Libraries
 const express        = require("express");
 const cookieSession  = require("cookie-session");
 const bcrypt         = require("bcrypt");
 const bodyParser     = require("body-parser");
 const methodOverride = require("method-override");
 
+// Use port 8080
 const app  = express();
 const PORT = 8080;
 
@@ -53,12 +55,12 @@ app.put("/register", (req, res) => {
   const userId = generateRandomString();
   const firstName = req.body.firstName
   const lastName = req.body.lastName;
-  const userEmail = req.body.email;
-  const userPassword = req.body.password;
-  const hashedUserPassword = bcrypt.hashSync(userPassword, 10)
+  const registerEmail = req.body.email;
+  const registerPassword = req.body.password;
+  const hashedRegisterPassword = bcrypt.hashSync(registerPassword, 10);
 
   // Check for registration errors
-  if (!firstName || !lastName || !userEmail || !userPassword) {
+  if (!firstName || !lastName || !registerEmail || !registerPassword) {
     res.status(400).send("Invalid entry. Please try again.");
     return;
   } else {
@@ -67,7 +69,7 @@ app.put("/register", (req, res) => {
     If not, add registration information in users database. */
     database.select("email")
       .from("users")
-      .where("email", userEmail)
+      .where("email", registerEmail)
       .then((emailList) => {
         if (emailList.length !== 0) {
           res.status(400).send("Email already exists. Please try again.");
@@ -77,8 +79,8 @@ app.put("/register", (req, res) => {
             id: userId,
             first_name: firstName,
             last_name: lastName,
-            email: userEmail,
-            password: hashedUserPassword
+            email: registerEmail,
+            password: hashedRegisterPassword
           }])
           .into("users")
           .then((result) => {
