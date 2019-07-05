@@ -81,6 +81,8 @@ app.put("/register", (req, res) => {
           }])
           .into("users")
           .then((result) => {
+            // Add cookie session after registration
+            req.session.user_id = userId;
             res.redirect("/welcome");
           });
         }
