@@ -127,8 +127,14 @@ app.put("/login", (req, res) => {
 });
 
 // GET welcome page
-app.get("/login", (req, res) => {
+app.get("/welcome", (req, res) => {
   res.render("urls_welcome");
+});
+
+// DELETE logout and remove cookie session
+app.delete("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/");
 });
 
 // Boot server
