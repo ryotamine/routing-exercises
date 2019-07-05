@@ -90,6 +90,11 @@ app.put("/register", (req, res) => {
   }
 });
 
+// GET login form
+app.get("/login", (req, res) => {
+  res.render("urls_login");
+});
+
 // Boot server
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
