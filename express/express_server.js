@@ -103,27 +103,34 @@ app.put("/login", (req, res) => {
   const loginEmail = req.body.email;
   const loginPassword = req.body.password;
 
-  /* Compare email and password to users database.
-  If both matches, go to welcome page.
-  If not, send error message. */
-  database.select("email")
-    .from("users")
-    .where("email", loginEmail)
-    .then((emailList) => {
-      if (emailList.length === 0) {
-        res.status(400).send("Invalid email. Please try again.");
-        return;
-      } else {
-        database.select("password")
-          .from("users")
-          .where("password", loginPassword)
-          .then((passwordList) => {
-            bcrypt.compare(passwordList, hash, function(err, res) {
+  // Check for login errors
+  if (!loginEmail || !loginPassword) {
+    res.status(400).send("Invalid entry. Please try again.");
+    return;
+  } else {
+    /* Compare email and password to users database.
+    If both matches, go to welcome page.
+    If not, send error message. */
+    database.select("email")
+      .from("users")
+      .where("email", loginEmail)
+      .then((emailList) => {
+        if (emailList.length === 0) {
+          res.status(400).send("Invalid email. Please try again.");
+          return;
+        } else {
+          database.select("password")
+            .from("users")
+            .where("password", loginPassword)
+            .then((passwordList) => {
+              bcrypt.compare(passwordList, database.hashedRegisterPassword, function(err, res) {
+                res = true;
+              });
               res.redirect("/welcome");
             });
-          });
-      }
-    });
+        }
+      });
+  }
 });
 
 // GET welcome page
