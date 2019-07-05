@@ -1,15 +1,17 @@
-require('dotenv').config();
+"use strict"
+
+require("dotenv").config();
 
 module.exports = {
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      database: 'express_users',
-      user: 'labber',
-      password: 'labber'
+      database: "express_users",
+      user: "labber",
+      password: "labber"
     },
     migrations: {
-      directory: './migrations'
+      directory: "./migrations"
     },
     useNullAsDefault: true
   }

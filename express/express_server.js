@@ -1,3 +1,5 @@
+"use strict"
+
 // Libraries
 const express        = require("express");
 const cookieSession  = require("cookie-session");
@@ -123,12 +125,14 @@ app.put("/login", (req, res) => {
             .from("users")
             .where("password", loginPassword)
             .then((passwordList) => {
-              bcrypt.compare(passwordList, database.hashedRegisterPassword, function(err, res) {
-                res = true;
-              });
-              // Add cookie session after login
-              req.session.user_id = database.id;
-              res.redirect("/welcome");
+              if (passwordList === database.registerPassword) {
+                res.status(400).send("Invalid password. Please try again.");
+                return;
+              } else {
+                // Add cookie session after login
+                req.session.user_id = database.id;
+                res.redirect("/welcome");
+              }
             });
         }
       });
