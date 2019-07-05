@@ -126,6 +126,8 @@ app.put("/login", (req, res) => {
               bcrypt.compare(passwordList, database.hashedRegisterPassword, function(err, res) {
                 res = true;
               });
+              // Add cookie session after login
+              req.session.user_id = database.id;
               res.redirect("/welcome");
             });
         }
