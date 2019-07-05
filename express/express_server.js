@@ -126,6 +126,11 @@ app.put("/login", (req, res) => {
     });
 });
 
+// GET welcome page
+app.get("/login", (req, res) => {
+  res.render("urls_welcome");
+});
+
 // Boot server
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
