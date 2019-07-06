@@ -1,0 +1,2 @@
+class RailsUser < ApplicationRecord
+end
