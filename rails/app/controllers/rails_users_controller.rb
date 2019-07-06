@@ -1,0 +1,2 @@
+class RailsUsersController < ApplicationController
+end
