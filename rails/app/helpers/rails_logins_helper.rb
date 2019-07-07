@@ -1,0 +1,2 @@
+module RailsLoginsHelper
+end
