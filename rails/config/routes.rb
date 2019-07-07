@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get "/register" => "rails_users#register"
   post "/register" => "rails_users#create"
   get "/login" => "rails_users#login"
+  post "/login" => "rails_users#create"
 end
