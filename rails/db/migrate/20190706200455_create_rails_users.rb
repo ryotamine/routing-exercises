@@ -5,7 +5,7 @@ class CreateRailsUsers < ActiveRecord::Migration[5.2]
       t.string :last_name
       t.string :email
       t.string :password
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
