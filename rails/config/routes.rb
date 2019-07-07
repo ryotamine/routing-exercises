@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post "/register" => "rails_users#create"
   get "/login" => "rails_users#login"
   post "/login" => "rails_users#create"
+  get "/welcome" => "rails_users#Welcome"
 end
