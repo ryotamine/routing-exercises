@@ -1,1 +1,0 @@
-# Django Routing Exercise by Ryota Mine
