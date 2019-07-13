@@ -2,11 +2,11 @@
   <h3>Login</h3>
   <%= form_for(:session, url: login_path) do |f| %>
     <div class="form-group">
-      Email: <%= f.text_field :email %>
+      Email: <%= f.text_field :email, placeholder: "Enter Email" %>
     </div>
     <div class="form-group">
-      Password: <%= f.password_field :password %>
+      Password: <%= f.password_field :password, placeholder: "Enter Password" %>
     </div>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Login" %>
   <% end %>
 </section>
