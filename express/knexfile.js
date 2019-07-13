@@ -11,7 +11,7 @@ module.exports = {
       password: "labber"
     },
     migrations: {
-      directory: "./migrations"
+      directory: "./db/migrations"
     },
     useNullAsDefault: true
   }
