@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "rails_users#index"
+  root to: "users#index"
 
-  get "/register" => "rails_users#register"
-  post "/register" => "rails_users#create"
-  get "/login" => "rails_users#login"
-  post "/login" => "rails_logins#create"
-  get "/welcome" => "rails_users#welcome"
-  get "/logout" => "rails_logins#destroy"
+  get "register" => "users#new"
+  resources :users
+  post "register" => "users#create"
+
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
+
+  get "welcome" => "sessions#welcome"
+
+  get "logout" => "sessions#destroy"
+
 end
