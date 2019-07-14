@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <% include partials/_header %>
 
     <title>Login - Express Routing Exercise</title>
   </head>
 
-  <body>
+  <body style="font-size:20px; padding:10px;">
     <h3>Login</h3>
     <form class="form-inline" action="/login?_method=PUT" method="POST">
-      <div class="email">
+      <div class="email" style="width: 100%; margin-top: 1em;">
         <h5>Email:</h5>
-        <input class="form-control" type="email" name="email" placeholder="Enter Email">
+        <input 
+          class="form-control" 
+          type="email" 
+          name="email" 
+          placeholder="Enter Email"
+          style="width: 300px;"
+        >
       </div>
-      <div class="password">
+      <div class="password" style="width: 100%; margin-top: 1em;">
         <h5>Password:</h5>
-        <input class="form-control" type="password" name="password" placeholder="Enter Password">
+        <input 
+          class="form-control" 
+          type="password" 
+          name="password" 
+          placeholder="Enter Password"
+          style="width: 300px;"
+        >
       </div>
-      <div class="login">
+      <div class="login" style="width: 100%; margin-top: 1em;">
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
     </form>
